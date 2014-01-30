@@ -1,6 +1,4 @@
-package Capstone.LetMyPeopleCode.DowsingRod;
-
-import Capstone.LetMyPeopleCode.DowsingRod.util.SystemUiHider;
+package edu.ucsb.cs.capstone.letmypeoplecode.dowsingrod;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -9,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+
+import  edu.ucsb.cs.capstone.letmypeoplecode.dowsingrod.util.SystemUiHider;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
