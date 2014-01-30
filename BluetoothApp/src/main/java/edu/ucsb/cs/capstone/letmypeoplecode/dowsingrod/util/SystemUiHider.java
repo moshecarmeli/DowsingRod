@@ -1,4 +1,4 @@
-package Capstone.LetMyPeopleCode.DowsingRod.util;
+package edu.ucsb.cs.capstone.letmypeoplecode.dowsingrod.util;
 
 import android.app.Activity;
 import android.os.Build;
