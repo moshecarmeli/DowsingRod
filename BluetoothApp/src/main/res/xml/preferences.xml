@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <EditTextPreference
-        android:key="sampling_rate"
-        android:title="Data Sampling Rate"
-        android:summary="How fast data is to be sampled (milliseconds)"
-        android:numeric="integer"
+        android:key="duration"
+        android:title="Sound Duration"
+        android:summary="How long generated sound should last"
+        android:numeric="decimal"
         android:maxLength="4"
-        android:defaultValue="20" />
+        android:defaultValue="0.1" />
     <CheckBoxPreference
         android:key="location_check"
         android:title="Location Data"
