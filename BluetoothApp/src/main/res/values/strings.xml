@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">DowsingRod</string>
-    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_button">Dummy button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="ble_not_supported">Bluetooth LE is not supported on this device.</string>
     <string name="action_settings">Settings</string>
