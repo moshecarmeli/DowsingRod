@@ -11,16 +11,19 @@ public class NoiseGenerator {
 
 
 
-    private final double duration = 0.1; // seconds
+    //private final double duration = 0.1; // seconds
     private final double sampleRate = 24000;
-    private final int numSamples = (int)(duration * sampleRate);
-    private final double sample[] = new double[numSamples];
+    private int numSamples = 0;
+    //private final double sample[] = new double[numSamples];
     private final double freqOfTone = 1000; // hz
 
-    private final byte generatedSnd[] = new byte[2 * numSamples];
+    private byte generatedSnd[];
 
-    void genTone(){
+    void genTone(double duration){
         // fill out the array
+        numSamples = (int)(duration * sampleRate);
+        generatedSnd = new byte[2 * numSamples];
+        double sample[] = new double[numSamples];
         for (int i = 0; i < numSamples; ++i) {
             sample[i] = Math.sin(2 * Math.PI * i / (sampleRate/freqOfTone));
         }

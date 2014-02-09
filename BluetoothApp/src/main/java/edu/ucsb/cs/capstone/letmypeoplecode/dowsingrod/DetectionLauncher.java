@@ -29,6 +29,9 @@ public class DetectionLauncher extends Activity {
     private static final int RESULT_SETTINGS = 1;
     private final static int REQUEST_ENABLE_BT = 1;
     private SharedPreferences sharedPref;
+    private double duration;
+    private long distance=2000;
+    private int flag=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,20 +86,32 @@ public class DetectionLauncher extends Activity {
     }
 
     public void genSound(View view) {
-
+        this.flag=1;
+        this.duration = Double.parseDouble(sharedPref.getString("duration", "0.1"));
         final NoiseGenerator noise = new NoiseGenerator();
         final Thread thread = new Thread(new Runnable() {
             public void run() {
-                noise.genTone();
-                handler.post(new Runnable() {
+                noise.genTone(duration);
+                //handler.post(new Runnable() {
+                    //public void run() {
+                        while(flag==1){
+                            noise.playSound();
+                            try{
+                                Thread.sleep(distance);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
-                    public void run() {
-                        noise.playSound();
-                    }
-                });
+                        }
+                    //}
+                //});
             }
         });
         thread.start();
+    }
+
+    public void offSound(View view) {
+        this.flag=0;
     }
 
     public SharedPreferences getSharedPref() {
