@@ -36,7 +36,6 @@ public class DetectionLauncher extends Activity {
     private static final int RESULT_SETTINGS = 1;
     private final static int REQUEST_ENABLE_BT = 1;
     private SharedPreferences sharedPref;
-<<<<<<< HEAD
     private BluetoothAdapter mBluetoothAdapter;
     private LeDeviceListAdapter mLeDeviceListAdapter;
     private BluetoothAdapter.LeScanCallback mLeScanCallback =
@@ -55,12 +54,9 @@ public class DetectionLauncher extends Activity {
                     });*/
                 }
             };
-
-=======
     private double duration;
     private long distance=2000;
     private int flag=0;
->>>>>>> 0af86509808fb5bcdb5ba312267f2c78e4d30234
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +138,6 @@ public class DetectionLauncher extends Activity {
         thread.start();
     }
 
-<<<<<<< HEAD
     // Adapter for holding devices found through scanning.
     private class LeDeviceListAdapter extends BaseAdapter {
         private ArrayList<BluetoothDevice> mLeDevices;
@@ -212,10 +207,10 @@ public class DetectionLauncher extends Activity {
     static class ViewHolder {
         TextView deviceName;
         TextView deviceAddress;
-=======
+    }
+
     public void offSound(View view) {
         this.flag=0;
->>>>>>> 0af86509808fb5bcdb5ba312267f2c78e4d30234
     }
 
     public SharedPreferences getSharedPref() {
