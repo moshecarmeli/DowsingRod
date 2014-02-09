@@ -11,9 +11,9 @@ public class NoiseGenerator {
 
 
 
-    private final int duration = 1; // seconds
-    private final int sampleRate = 24000;
-    private final int numSamples = duration * sampleRate;
+    private final double duration = 0.1; // seconds
+    private final double sampleRate = 24000;
+    private final int numSamples = (int)(duration * sampleRate);
     private final double sample[] = new double[numSamples];
     private final double freqOfTone = 1000; // hz
 
