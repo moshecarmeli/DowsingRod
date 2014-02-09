@@ -5,11 +5,13 @@ import android.preference.PreferenceActivity;
 
 public class SettingActivity extends PreferenceActivity {
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.preferences);
+        // Display the fragment as the main content
+        getFragmentManager().beginTransaction()
+                .add(android.R.id.content, new SettingsFragment())
+                .commit();
     }
 }
