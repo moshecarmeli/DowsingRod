@@ -16,7 +16,7 @@
         android:textStyle="bold"
         android:textSize="50sp"
         android:gravity="center"
-        android:text="@string/dummy_content" />
+        android:text="" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -49,6 +49,17 @@
                 android:text="@string/off_button" />
 
         </LinearLayout>
+
+        <EditText
+            android:layout_width="284dp"
+            android:layout_height="73dp"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/rssiVal"
+            android:layout_gravity="center"
+            android:text="hi"
+            android:editable="true"
+            android:textSize="24dp" />
     </FrameLayout>
 
 </FrameLayout>
