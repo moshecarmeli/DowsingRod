@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,6 +91,10 @@ public class DetectionLauncher extends Activity {
         // Hook in settings
         this.sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
+        // Disable stop button
+        Button button = (Button)findViewById(R.id.stop_button);
+        button.setEnabled(false);
+
         // Example of using the preferences from other project:
         // this.samplingRateInMilliseconds = Integer.parseInt(sharedPref.getString("sampling_rate", "20"));
     }
@@ -116,6 +121,10 @@ public class DetectionLauncher extends Activity {
     }
 
     public void genSound(View view) {
+        Button button = (Button)findViewById(R.id.stop_button);
+        button.setEnabled(true);
+        button = (Button)findViewById(R.id.start_button);
+        button.setEnabled(false);
         this.flag=1;
         this.duration = Double.parseDouble(sharedPref.getString("duration", "0.05"));
         final NoiseGenerator noise = new NoiseGenerator(duration);
@@ -213,6 +222,10 @@ public class DetectionLauncher extends Activity {
 
     public void offSound(View view) {
         this.flag=0;
+        Button button = (Button)findViewById(R.id.start_button);
+        button.setEnabled(true);
+        button = (Button)findViewById(R.id.stop_button);
+        button.setEnabled(false);
     }
 
     public SharedPreferences getSharedPref() {
