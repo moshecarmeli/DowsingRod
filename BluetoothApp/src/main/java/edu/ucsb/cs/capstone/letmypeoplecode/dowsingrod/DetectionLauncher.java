@@ -68,8 +68,8 @@ public class DetectionLauncher extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detection_launcher);
         final View contentView = findViewById(R.id.fullscreen_content);
-        ((TextView) findViewById(R.id.rssiVal)).setText("fuck");
-
+       // ((TextView) findViewById(R.id.rssiVal)).setText("fuck");
+ 
         // Use this check to determine whether BLE is supported on the device. Then
         // you can selectively disable BLE-related features.
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
