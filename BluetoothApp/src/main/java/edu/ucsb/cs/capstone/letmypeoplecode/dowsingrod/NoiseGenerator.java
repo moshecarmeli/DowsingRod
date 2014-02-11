@@ -7,10 +7,8 @@ import android.media.AudioTrack;
 /**
  * Created by dimberman on 1/30/14.
  */
+
 public class NoiseGenerator {
-
-
-
     //private final double duration = 0.1; // seconds
     private final double sampleRate = 24000;
     private int numSamples = 0;
@@ -18,6 +16,17 @@ public class NoiseGenerator {
     private final double freqOfTone = 1000; // hz
 
     private byte generatedSnd[];
+
+    private AudioTrack audioTrack;
+
+    public NoiseGenerator(double duration){
+        genTone(duration);
+        this.audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
+                8000, AudioFormat.CHANNEL_OUT_MONO,
+                AudioFormat.ENCODING_PCM_16BIT, numSamples,
+                AudioTrack.MODE_STATIC);
+        audioTrack.write(generatedSnd, 0, numSamples);
+    }
 
     void genTone(double duration){
         // fill out the array
@@ -39,11 +48,11 @@ public class NoiseGenerator {
     }
 
     void playSound(){
-        AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
-                8000, AudioFormat.CHANNEL_OUT_MONO,
-                AudioFormat.ENCODING_PCM_16BIT, numSamples,
-                AudioTrack.MODE_STATIC);
-        audioTrack.write(generatedSnd, 0, numSamples);
         audioTrack.play();
+    }
+
+    void rewind(){
+        audioTrack.stop();
+        audioTrack.reloadStaticData();
     }
 }

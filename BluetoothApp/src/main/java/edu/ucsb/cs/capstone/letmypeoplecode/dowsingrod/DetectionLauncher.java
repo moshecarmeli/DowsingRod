@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,9 @@ public class DetectionLauncher extends Activity {
                 public void onLeScan(final BluetoothDevice device, int rssi,
                                      byte[] scanRecord) {
 
-                    Log.d("bt_scan_results", device.toString() + " " + Integer.toString(rssi));
+
+                    waitPeriod = (long)(Math.exp(-0.1151292546 * rssi - 4.029523913)*1.2 + 100);
+                    Log.d("bt_scan_results", device.toString() + " " + Integer.toString(rssi) + " " + waitPeriod);
                     /*runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -55,7 +58,7 @@ public class DetectionLauncher extends Activity {
                 }
             };
     private double duration;
-    private long distance=2000;
+    private long waitPeriod=2000;
     private int flag=0;
 
     @Override
@@ -88,6 +91,10 @@ public class DetectionLauncher extends Activity {
         // Hook in settings
         this.sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
+        // Disable stop button
+        Button button = (Button)findViewById(R.id.stop_button);
+        button.setEnabled(false);
+
         // Example of using the preferences from other project:
         // this.samplingRateInMilliseconds = Integer.parseInt(sharedPref.getString("sampling_rate", "20"));
     }
@@ -114,22 +121,26 @@ public class DetectionLauncher extends Activity {
     }
 
     public void genSound(View view) {
+        Button button = (Button)findViewById(R.id.stop_button);
+        button.setEnabled(true);
+        button = (Button)findViewById(R.id.start_button);
+        button.setEnabled(false);
         this.flag=1;
-        this.duration = Double.parseDouble(sharedPref.getString("duration", "0.1"));
-        final NoiseGenerator noise = new NoiseGenerator();
+        this.duration = Double.parseDouble(sharedPref.getString("duration", "0.05"));
+        final NoiseGenerator noise = new NoiseGenerator(duration);
         final Thread thread = new Thread(new Runnable() {
             public void run() {
-                noise.genTone(duration);
+//                noise.genTone(duration);
                 //handler.post(new Runnable() {
                     //public void run() {
                         while(flag==1){
                             noise.playSound();
                             try{
-                                Thread.sleep(distance);
+                                Thread.sleep(waitPeriod);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-
+                            noise.rewind();
                         }
                     //}
                 //});
@@ -211,6 +222,10 @@ public class DetectionLauncher extends Activity {
 
     public void offSound(View view) {
         this.flag=0;
+        Button button = (Button)findViewById(R.id.start_button);
+        button.setEnabled(true);
+        button = (Button)findViewById(R.id.stop_button);
+        button.setEnabled(false);
     }
 
     public SharedPreferences getSharedPref() {
