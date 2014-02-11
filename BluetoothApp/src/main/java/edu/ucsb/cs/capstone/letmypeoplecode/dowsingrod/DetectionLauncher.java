@@ -41,20 +41,19 @@ public class DetectionLauncher extends Activity {
     private SharedPreferences sharedPref;
     private BluetoothAdapter mBluetoothAdapter;
     private LeDeviceListAdapter mLeDeviceListAdapter;
-    private static int shit;
     private BluetoothAdapter.LeScanCallback mLeScanCallback =
             new BluetoothAdapter.LeScanCallback() {
                 @Override
-                public void onLeScan(final BluetoothDevice device, int rssi,
+
+                public void onLeScan(final BluetoothDevice device, final int rssi,
                                      byte[] scanRecord) {
 
-                    shit=rssi;
                     waitPeriod = (long)(Math.exp(-0.1151292546 * rssi - 4.029523913)*1.2 + 100);
                     Log.d("bt_scan_results", device.toString() + " " + Integer.toString(rssi) + " " + waitPeriod);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ((TextView) findViewById(R.id.rssiVal)).setText(Integer.toString(shit));
+                            ((TextView) findViewById(R.id.rssiVal)).setText(Integer.toString(rssi));
                         }
                     });
                 }
@@ -69,7 +68,7 @@ public class DetectionLauncher extends Activity {
         setContentView(R.layout.activity_detection_launcher);
         final View contentView = findViewById(R.id.fullscreen_content);
        // ((TextView) findViewById(R.id.rssiVal)).setText("fuck");
- 
+
         // Use this check to determine whether BLE is supported on the device. Then
         // you can selectively disable BLE-related features.
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
