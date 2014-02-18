@@ -28,6 +28,8 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -101,13 +103,24 @@ public class DetectionLauncher extends Activity {
 //                    }
                     String ass = device.getName();
                     String addr = device.getAddress();
+                    ByteBuffer M = ByteBuffer.allocate(2);
+                    M.order(ByteOrder.BIG_ENDIAN);
+                    M.put(scanRecord[25]);
+                    M.put(scanRecord[26]);
+                    final short major=M.getShort(0);
+
+                    ByteBuffer m = ByteBuffer.allocate(2);
+                    m.order(ByteOrder.BIG_ENDIAN);
+                    m.put(scanRecord[27]);
+                    m.put(scanRecord[28]);
+                    final short minor=m.getShort(0);
                     //Log.d("bt_scan_results",device.getUuids());
                     waitPeriod = (long)(Math.exp(-0.1151292546 * rssi - 4.029523913)*1.2 + 100);
                     Log.d("bt_scan_results", device.toString() + " " + Integer.toString(rssi) + " " + waitPeriod);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ((TextView) findViewById(R.id.rssiVal)).setText(Integer.toString(rssi));
+                            ((TextView) findViewById(R.id.rssiVal)).setText(Integer.toString(rssi)+"M: "+Short.toString(major)+", m: "+Short.toString(minor));
                         }
                     });
                 }
